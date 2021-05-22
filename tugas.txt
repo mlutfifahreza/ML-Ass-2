@@ -1,0 +1,46 @@
+Tugas 2 - Multi Layer Perceptron
+Kelas Reguler B
+
+Perhatikan dataset berikut :
+https://www.kaggle.com/alxmamaev/flowers-recognition
+Terdapat 5 kelas bunga : daisy, tulip, rose, sunflower, dandelion.
+Jumlah data untuk setiap kelas adalah 600-800 images.
+
+Task : Image Classification
+Tipe Tugas : Kelompok
+1 kelompok = 3 mhs
+
+Deadline : 25 May 2021 pukul 08.00 WIB
+
+Dataset yang digunakan
+1. Ambil hanya 100 image untuk setiap kelas
+2. Gunakan hanya 3 kelas : sunflower, dandelion, rose
+3. Split data : training data (80%) dan testing data (20%)
+4. Training Data : 80 kelas 1 + 80 kelas 2 + 80 kelas 3
+
+Gunakan neural network - multi layer perceptron - algoritma backpropagation
+1. Tentukan arsitektur multilayer perceptron (cukup 1 hidden layer) yang anda gunakan.
+    Jumlah neuron di input layer = jumlah keseluruhan pixel dalam 1 image (320x240) =>
+    resize menjadi 320x240
+2. Buatlah kode python untuk mendefinisikan arsitektur yang digunakan.
+3. Buatlah kode python untuk mendefinisikan fungsi Load dataset dan visualisasi data
+4. Buatlah kode python untuk mendefinisikan fungsi grayscale (boleh menggunakanlibrary)
+5. Buatlah kode python untuk mendefinisikan fungsi aktivasi sigmoid
+6. Buatlah kode python untuk mendefinisikan fungsi algoritma pembelajaran backpropagation - 
+    Inisialisasi bobot and bias
+7. Buatlah kode python untuk mendefinisikan fungsi algoritma pembelajaran backpropagation - menghitung error
+8. Buatlah kode python untuk mendefinisikan fungsi algoritma pembelajaran backpropagation - Feedforward
+9. Buatlah kode python untuk mendefinisikan fungsi algoritma pembelajaran backpropagation - backward (update bobot)
+10. Buatlah kode python untuk mendefinisikan fungsi algoritma pembelajaran backpropagation - prediksi
+11. Buatlah kode python untuk mendefinisikan fungsi algoritma pembelajaran backpropagation - mendefinisikan fungsi akurasi
+12. Buatlah kode python untuk mendefinisikan fungsi training (80% data) dan testing (20% data)
+13. Visualisasikan error dan akurasi setiap epoch untuk 50 epoch, dan coba gunakan
+    learning rate = 0,1 ; learning rate = 0,8
+
+Instruksi :
+1. Buatlah laporan untuk tugas ini yang memuat sejelas - jelasnya : 
+    - potongan kode, 
+    - hasil eksperimen, 
+    - dan pembahasannya
+2. Full source code di -upload ke github dan mohon tuliskan URL di laporan
+3. Mohon dituliskan sejelas-jelasnya terkait tugas dari setiap anggota kelompok
