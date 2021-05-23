@@ -1,17 +1,9 @@
 import os
 import cv2 as cv
 from matplotlib import pyplot as plt
+from mlp import *
 
 datasets_path = 'downloads/flowers-datasets/'
-
-# Multi Layer Perceptron
-class mlp:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
-    def myfunc(self):
-        print("Hello my name is " + self.name)
 
 # Import datasets
 targets = os.listdir(datasets_path)
@@ -32,3 +24,15 @@ for target in targets:
         # resize image
         img = cv.resize(img, (320,240))
         images[target].append(img)
+
+# print("Sample image (2 each)")
+# for target in targets:
+#     print(target)
+#     for i in range(2):
+#         print("image",i)
+#         print(images[target][i])
+#     print()
+#     input("enter to continue")
+
+aClass = mlp("Fahreza",21)
+aClass.myfunc()
