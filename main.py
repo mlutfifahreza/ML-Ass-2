@@ -40,4 +40,3 @@ for target in targets:
 #     input("enter to continue")
 
 aClass = mlp(dim, 1000, targets)
-aClass.myfunc()
