@@ -1,4 +1,5 @@
 import cv2 as cv
+import random
 from matplotlib import pyplot as plt
 from mlp import *
 import os
@@ -47,6 +48,28 @@ for target in targets:
             target1d = [0, 0, 1]
 
         images_flat[target].append([img1d, target1d])
+
+## SPLIT TRAINING TESTING DATA
+images_training_data = {}
+images_testing_data = {}
+images_training_data_1d = {}
+images_testing_data_1d = {}
+
+images_dummy = images
+images_flat_dummy = images_flat
+
+for target in targets:
+    random.shuffle(images_dummy[target])
+    random.shuffle(images_flat_dummy[target])
+
+for target in targets:
+    images_training_data.append(images_dummy[target][:80])
+    images_training_data_1d.append(images_flat_dummy[target][:80])
+    images_testing_data.append(images_dummy[target][80:])
+    images_testing_data_1d.append(images_flat_dummy[target][80:])
+
+print(len(images_training_data))
+print(len(images_testing_data))
 
 # (5) VISUALISASI DATA
 # print("Sample image (2 each)")
