@@ -20,8 +20,10 @@ if '.DS_Store' in targets: #remove clutter from mac folder file
 print('targets :',targets)
 
 images = {}
+images_flat = {}
 for target in targets:
     images[target] = []
+    images_flat[target] = [[],[]] # pixel value, target [0,1,0]
     image_names = os.listdir(datasets_path+target)
     if '.DS_Store' in image_names: #remove clutter from mac folder file
         image_names.remove('.DS_Store')
@@ -32,8 +34,19 @@ for target in targets:
         img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
         # resize image
         img = cv.resize(img, dim)
+        img1d = img.flatten()
+        target1d = [0, 0, 0]
         # add each image to corresponding target in images
         images[target].append(img)
+        # add to image_flat
+        if target == "dandelion":
+            target1d = [1, 0, 0]
+        elif target == "rose":
+            target1d = [0, 1, 0]
+        else:
+            target1d = [0, 0, 1]
+
+        images_flat[target].append([img1d, target1d])
 
 # (5) VISUALISASI DATA
 # print("Sample image (2 each)")
