@@ -1,7 +1,7 @@
-import os
 import cv2 as cv
 from matplotlib import pyplot as plt
 from mlp import *
+import os
 
 datasets_path = 'downloads/flowers-datasets/'
 
@@ -35,18 +35,82 @@ for target in targets:
         # add each image to corresponding target in images
         images[target].append(img)
 
-# (3) VISUALISASI DATA
+# (5) VISUALISASI DATA
 # print("Sample image (2 each)")
 # for target in targets:
 #     print(target)
-#     for i in range(2):
+#     for i in range(1):
 #         print("image",i)
-#         print(images[target][i])
+#         # cv.imshow('image',images[target][i])
+#         plt.imshow(images[target][i],cmap="gray")
+#         plt.show()
 #     print()
-#     input("enter to continue")
+#     # input("enter to continue")
+# print(images)
+# image = {
+#     "dandelion" : []
+#     "rose"
+#     "sunflower"
+# }
+# image["rose"][4]
+
+fig = plt.figure(figsize=(10, 7))
+  
+# setting values to rows and column variables
+rows = 1
+columns = 3
+
+fig.add_subplot(rows, columns, 1)
+# showing image
+plt.imshow(images["dandelion"][0])
+plt.axis('off')
+plt.title("Dandelion")
+  
+# Adds a subplot at the 2nd position
+fig.add_subplot(rows, columns, 2)
+  
+# showing image
+plt.imshow(images["rose"][0])
+plt.axis('off')
+plt.title("Rose")
+  
+# Adds a subplot at the 3rd position
+fig.add_subplot(rows, columns, 3)
+  
+# showing image
+plt.imshow(images["sunflower"][0])
+plt.axis('off')
+plt.title("Sunflower")
+
+
+# #important library to show the image 
+# # import matplotlib.image as mpimg
+# # import matplotlib.pyplot as plt
+# #importing numpy to work with large set of data.
+# import numpy as np
+# #image read function
+# img=cv.imread('Downloads/flowers-datasets/rose353897245_5453f35a8e.jpg')
+# #image sclicing into 2D. 
+# x=img[:,0]
+# # x co-ordinate denotation. 
+# plt.xlabel("Value")
+# # y co-ordinate denotation.
+# plt.ylabel("pixels Frequency")
+# # title of an image .
+# plt.title("Original Image")
+# # imshow function with comperision of gray level value.
+# plt.imshow(x,cmap="gray")
+# #plot the image on a plane.
+# plt.show()
+# plt.title("HIstogramm for given Image'  ")
+# plt.xlabel("Value")
+# plt.ylabel("pixels Frequency")
+# #hist function is used to plot the histogram of an image.
+# plt.hist(x)
+
 
 # (2) DEFINISIKAN ARSITEKTUR
-flower_mlp = mlp(dim, n_hidden, targets)
+# flower_mlp = mlp(dim, n_hidden, targets)
 
 # (12) SPLIT TRAIN AND TEST DATA
 

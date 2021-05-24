@@ -45,6 +45,12 @@ class mlp:
         return mse
         
     # (8) BACK PROB : Feed-forward
+    def feed_forward(self, input, weight):
+        return np.dot(input,weight)
+
     # (9) BACK PROB : Feed-backward
+    def feed_backward(self, ):
+        return 1
+
     # (10) BACK PROB : Prediksi
     # (11) BACK PROB : Measure akurasi
