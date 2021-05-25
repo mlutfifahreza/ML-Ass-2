@@ -6,6 +6,17 @@ import time
 class mlp:
 
     # (5) AKTIVASI SIGMOID
+    def softmax(self, data):
+        exp = []
+        exp_sum = 0
+        for d in data:
+            e = np.exp(int(d))
+            exp.append(e)
+            exp_sum += e
+        for i in range(len(exp)):
+            exp[i] /= exp_sum
+        return exp
+
     def activation(self, input, weight):
         z = np.dot(input, weight)
         return 1/(1 + np.exp(-z))
@@ -45,6 +56,18 @@ class mlp:
         self.alpha = alpha
         self.train_log = {'error' : [], 'accuracy' : []}
 
+        print("Dimension =",dim,"total",self.n_input-1,"value + 1 bias")
+
+    def set_input(self, input):
+        input = input.flatten()
+        new_input = []
+        for e in input:
+            new_input.append(e)
+        new_input = self.softmax(new_input)
+        new_input.append(1)
+        self.input = new_input
+        # return new_input
+
     # (7) BACK PROB : Hitung error
     def mse(self, activations, targets):
         mse = 0
@@ -82,36 +105,32 @@ class mlp:
                 # update weight0 ij
                 self.weight[0][j][i] -= self.alpha * self.derivative[j]
 
-    # (10) BACK PROB : Prediksi
-    def predict(self, input):
-        self.input = input
-        self.feed_forward()
-        max_idx = 0
-        for i in range(self.n_output):
-            if self.output[max_idx] < self.output[i]:
-                max_idx = i #find maximum activation function
-        if i == 0 :
-            return [1,0,0]
-        elif i == 1 :
-            return [0,1,0]
-        else :
-            return [0,0,1]
+    
           
-    def train(self, datasets):
+    def train(self, train_data, test_data):
         for e in range(self.epoch):
             start_time = time.perf_counter()
-            print("training #"+str(e))
+            print("Epoch #"+str(e))
             activations = []
             targets = []
-            n = len(datasets)
+            n = len(train_data)
             for i in range(n):
-                new_input = datasets[i][0].flatten()
-                new_input = np.append(new_input, 1) # adding bias
-                self.input = new_input
+                # new_input = train_data[i][0].flatten()
+                self.set_input(train_data[i][0])
+                # print(new_input.shape)
+                # print("data = ",new_input)
+                # new_input = self.softmax(new_input)
+                # print("data after softmax = ",new_input)
+                # new_input = np.append(new_input, 1) # adding bias
+                # self.input = new_input
                 self.feed_forward()
-                self.feed_backward(datasets[i][1])
+                # print("hidden",self.hidden)
+                # print("output",self.output)
+                self.feed_backward(train_data[i][1])
+                # print("derivative",self.derivative)
+                # save log
                 activations.append(self.output)
-                targets.append(datasets[i][1])
+                targets.append(train_data[i][1])
                 # check performance
                 done = i+1
                 undone = n-done
@@ -122,5 +141,38 @@ class mlp:
                 remaining_time = "{:.2f}".format(remaining_time)
                 sys.stdout.write('\r'+"Progress : "+ str(done) + "/"+ str(n) + " - Elapsed = "+ str(elapsed_time) + "s - Remaining = " + str(remaining_time) + "s")
             mse = self.mse(activations, targets)
-            print("Error =",mse)
+            print("\nError =",mse, end=" ")
             self.train_log['error'].append(mse)
+            # measure accuracy
+            accuracy = self.accuracy(test_data)
+            print(" - Accuracy =",accuracy)
+            self.train_log['accuracy'].append(accuracy)
+
+    # (10) BACK PROB : Prediksi
+    def predict(self, input):
+        self.set_input(input)
+        to_print = np.array(self.input)
+        print("input =",to_print)
+        self.feed_forward()
+        max_idx = 0
+        for i in range(self.n_output):
+            if self.output[max_idx] < self.output[i]:
+                max_idx = i #find maximum activation function
+        print("output",self.output,"index =",max_idx)
+        if i == 0 :
+            return [1,0,0]
+        elif i == 1 :
+            return [0,1,0]
+        else :
+            return [0,0,1]
+
+    def accuracy(self, data):
+        n = len(data)
+        correct = 0
+        for i in range(n):
+            prediction = self.predict(data[i][0])
+            target = data[i][1]
+            print("prediction",prediction,"target",target)
+            if (prediction == target):
+                correct += 1
+        return correct/n

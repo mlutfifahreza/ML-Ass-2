@@ -2,13 +2,15 @@ import cv2 as cv
 import random
 from matplotlib import pyplot as plt
 import os
+from mlp import *
 
-datasets_path = '/content/drive/MyDrive/Semester 6/Machine Learning/Tugas/Assignment 2 - MLP/flowers-datasets/'
+datasets_path = 'downloads/flowers-datasets/'
 
 # (1) ARSITEKTUR MLP 
 # total input = 320*240 = 76800
-width = 320
-height = 240
+width,height = 120,80
+# width,height = 140,100
+# height = 240
 dim = (width,height)
 n_hidden = 40 # total neuron di hidden (1 layer)
 
@@ -58,9 +60,10 @@ print("total test data =",len(test_data))
 
 # (2) DEFINISIKAN ARSITEKTUR
 print("new mlp")
-flower_mlp = mlp(dim, n_hidden, targets, 50, 0.1)
+flower_mlp = mlp(dim, n_hidden, targets, 20, 0.5)
 print("new mlp training")
-flower_mlp.train(train_data)
+flower_mlp.train(train_data, test_data)
+print(flower_mlp.train_log)
 
 # # (5) VISUALISASI DATA
 
